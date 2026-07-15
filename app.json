@@ -1,17 +1,30 @@
 {
   "expo": {
-    "name": "smart-shopping-mobile",
+    "name": "Smart Shopping",
     "slug": "smart-shopping-mobile",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    "backgroundColor": "#003632",
+    "scheme": "smartshopping",
+    "androidStatusBar": {
+      "barStyle": "light-content",
+      "backgroundColor": "#003632"
+    },
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#003632"
+    },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.smartshopping.mobile"
     },
     "android": {
+      "package": "com.smartshopping.mobile",
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
+        "backgroundColor": "#003632",
         "foregroundImage": "./assets/android-icon-foreground.png",
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
@@ -19,6 +32,14 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Smart Shopping needs access to your photos so you can add images to your ad listings."
+        }
+      ]
+    ]
   }
 }

@@ -1,17 +1,47 @@
+import { useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { Provider, useDispatch } from 'react-redux';
+import { View, ActivityIndicator, StyleSheet } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+
+import store from './src/store/store';
+import { bootstrapAuth } from './src/store/slices/authSlice';
+import AppNavigator from './src/navigation/AppNavigator';
+
+function Bootstrapper({ children }) {
+  const dispatch = useDispatch();
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    dispatch(bootstrapAuth()).finally(() => setReady(true));
+  }, [dispatch]);
+
+  if (!ready) {
+    return (
+      <View style={styles.splash}>
+        <ActivityIndicator size="large" color="#0f766e" />
+      </View>
+    );
+  }
+
+  return children;
+}
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Provider store={store}>
+      <SafeAreaProvider>
+        <Bootstrapper>
+          <AppNavigator />
+        </Bootstrapper>
+        <StatusBar style="auto" />
+      </SafeAreaProvider>
+    </Provider>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  splash: {
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
